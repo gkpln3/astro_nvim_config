@@ -3,7 +3,6 @@
 -- Please use this mappings table to set keyboard mapping since this is the
 -- lower level configuration and more robust one. (which-key will
 -- automatically pick-up stored data by this setting.)
-vim.api.nvim_set_keymap("n", "<leader>s", "<leader>S", { noremap = false, silent = true })
 
 return {
   -- first key is the mode
@@ -48,8 +47,13 @@ return {
       end,
       desc = "Toggle Explorer Focus",
     },
-    ["{"] = { "<cmd>AerialPrev<CR>" },
-    ["}"] = { "<cmd>AerialNext<CR>" },
+
+    ["[f"] = { "<cmd>AerialPrev<CR>" },
+    ["]f"] = { "<cmd>AerialNext<CR>" },
+    -- Move lines using Alt-j/k.
+    ["<A-j>"] = { ":m .+1<CR>==" },
+    ["<A-k>"] = { ":m .-2<CR>==" },
+
     -- quick save
 
     -- quick save
@@ -58,5 +62,13 @@ return {
   t = {
     -- setting a mapping to false will disable it
     -- ["<esc>"] = false,
+  },
+  i = {
+    ["<A-j>"] = { "<Esc>:m .+1<CR>==gi" },
+    ["<A-k>"] = { "<Esc>:m .-2<CR>==gi" },
+  },
+  v = {
+    ["<A-j>"] = { ":m '>+1<CR>gv=gv" },
+    ["<A-k>"] = { ":m '<-2<CR>gv=gv" },
   },
 }

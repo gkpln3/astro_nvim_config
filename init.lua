@@ -50,7 +50,8 @@ return {
     },
     -- enable servers that you already have installed without mason
     servers = {
-      -- "pyright"
+      "pyright",
+      "gopls",
     },
   },
 
@@ -81,6 +82,84 @@ return {
     end
     vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = changeDir })
 
+    require("lspconfig").gopls.setup {
+      on_attach = function(client) print("Attached with lspconfig on gopls" .. client) end,
+    }
+
+    local lsp_cmds = vim.api.nvim_create_augroup("lsp_cmds", { clear = true })
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = lsp_cmds,
+      desc = "My global on_attach",
+      callback = function(event)
+        local bufnr = event.buf
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if client.name == "gopls" then
+          client.server_capabilities.semanticTokensProvider = {
+            full = true,
+            legend = {
+              tokenTypes = {
+                "namespace",
+                "type",
+                "class",
+                "enum",
+                "interface",
+                "struct",
+                "typeParameter",
+                "parameter",
+                "variable",
+                "property",
+                "enumMember",
+                "event",
+                "function",
+                "method",
+                "macro",
+                "keyword",
+                "modifier",
+                "comment",
+                "string",
+                "number",
+                "regexp",
+                "operator",
+                "decorator",
+              },
+              tokenModifiers = {
+                "declaration",
+                "definition",
+                "readonly",
+                "static",
+                "deprecated",
+                "abstract",
+                "async",
+                "modification",
+                "documentation",
+                "defaultLibrary",
+              },
+            },
+          }
+        end
+
+        -- now do your thing.....
+      end,
+    })
+    require("lspconfig").gopls.setup {
+      init_options = {
+        semanticTokens = true,
+      },
+    }
+
+    require("lspconfig").util.add_hook_after(function(_, _, result)
+      if result == nil then
+        print "LSP: No results found"
+        return
+      end
+      if result == {} then
+        print "LSP: Empty results"
+        return
+      end
+      print "LSP: Results found"
+    end, "textDocument/definition")
+
+    vim.lsp.set_log_level "debug"
     -- Set up custom filetypes
     -- vim.filetype.add {
     --   extension = {
