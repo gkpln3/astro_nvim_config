@@ -54,11 +54,10 @@ return {
     ["<A-j>"] = { ":m .+1<CR>==" },
     ["<A-k>"] = { ":m .-2<CR>==" },
     ["<leader>gf"] = { "<cmd>Git<CR>" },
-
-    -- quick save
-
-    -- quick save
-    -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+    ["<A-h>"] = {
+      function() vim.lsp.buf.signature_help() end,
+      desc = "Signature help",
+    },
   },
   t = {
     -- setting a mapping to false will disable it
@@ -67,9 +66,17 @@ return {
   i = {
     ["<A-j>"] = { "<Esc>:m .+1<CR>==gi" },
     ["<A-k>"] = { "<Esc>:m .-2<CR>==gi" },
+    ["<A-h>"] = {
+      function() vim.lsp.buf.signature_help() end,
+      desc = "Signature help",
+    },
   },
   v = {
     ["<A-j>"] = { ":m '>+1<CR>gv=gv" },
     ["<A-k>"] = { ":m '<-2<CR>gv=gv" },
+    ["<A-h>"] = {
+      function() vim.lsp.buf.signature_help() end,
+      desc = "Signature help",
+    },
   },
 }
