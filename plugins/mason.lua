@@ -10,6 +10,8 @@ return {
         "lua_ls",
         "pyright",
         "gopls",
+        "autotools_ls",
+        "yaml_ls",
       })
       opts.settings = {
         gopls = {
