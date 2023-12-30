@@ -69,6 +69,18 @@ return {
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
+    -- When vim opens, use the directory given as an argument
+    local function changeDir(data)
+      -- buffer is a directory
+      local directory = vim.fn.isdirectory(data.file) == 1
+
+      if not directory then return end
+
+      -- change to the directory
+      vim.cmd.cd(data.file)
+    end
+    vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = changeDir })
+
     -- Set up custom filetypes
     -- vim.filetype.add {
     --   extension = {
