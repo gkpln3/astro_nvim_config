@@ -53,6 +53,7 @@ return {
     -- Move lines using Alt-j/k.
     ["<A-j>"] = { ":m .+1<CR>==" },
     ["<A-k>"] = { ":m .-2<CR>==" },
+    ["<leader>gf"] = { "<cmd>Git<CR>" },
 
     -- quick save
 
