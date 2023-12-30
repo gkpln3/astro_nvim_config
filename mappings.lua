@@ -3,6 +3,8 @@
 -- Please use this mappings table to set keyboard mapping since this is the
 -- lower level configuration and more robust one. (which-key will
 -- automatically pick-up stored data by this setting.)
+vim.api.nvim_set_keymap("n", "<leader>s", "<leader>S", { noremap = false, silent = true })
+
 return {
   -- first key is the mode
   n = {
@@ -30,6 +32,26 @@ return {
     -- tables with the `name` key will be registered with which-key if it's installed
     -- this is useful for naming menus
     ["<leader>b"] = { name = "Buffers" },
+    ["<leader>fw"] = {
+      function() require("telescope").extensions.live_grep_args.live_grep_args() end,
+      desc = "Find words",
+    },
+
+    ["<C-n>"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
+    ["<leader>e"] = {
+      function()
+        if vim.bo.filetype == "neo-tree" then
+          vim.cmd.wincmd "p"
+        else
+          vim.cmd.Neotree "focus"
+        end
+      end,
+      desc = "Toggle Explorer Focus",
+    },
+    ["{"] = { "<cmd>AerialPrev<CR>" },
+    ["}"] = { "<cmd>AerialNext<CR>" },
+    -- quick save
+
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
   },
