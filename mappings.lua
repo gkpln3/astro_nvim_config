@@ -58,6 +58,9 @@ return {
       function() vim.lsp.buf.signature_help() end,
       desc = "Signature help",
     },
+    ["-"] = {
+      "<CMD>Oil<CR>", desc = "Open parent directory" ,
+    },
   },
   t = {
     -- setting a mapping to false will disable it
@@ -70,6 +73,23 @@ return {
       function() vim.lsp.buf.signature_help() end,
       desc = "Signature help",
     },
+    ["<Tab>"] = {
+      function() 
+        local copilot = require "copilot.suggestion"
+        if copilot.is_visible() then
+          copilot.accept()
+        else
+          -- Input tab
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
+        end
+      end
+    },
+    ["<S-Tab>"] = {
+      function() 
+        -- Remove one indentation level
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-d>", true, true, true), "n")
+      end
+    }
   },
   v = {
     ["<A-j>"] = { ":m '>+1<CR>gv=gv" },
