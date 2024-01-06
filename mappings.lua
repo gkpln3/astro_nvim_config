@@ -51,15 +51,16 @@ return {
     ["[f"] = { "<cmd>AerialPrev<CR>" },
     ["]f"] = { "<cmd>AerialNext<CR>" },
     -- Move lines using Alt-j/k.
-    ["<A-j>"] = { ":m .+1<CR>==" },
-    ["<A-k>"] = { ":m .-2<CR>==" },
+    ["<A-Down>"] = { ":m .+1<CR>" },
+    ["<A-Up>"] = { ":m .-2<CR>" },
     ["<leader>gf"] = { "<cmd>Git<CR>" },
-    ["<A-h>"] = {
-      function() vim.lsp.buf.signature_help() end,
-      desc = "Signature help",
-    },
+    -- ["<A-h>"] = {
+    --   function() vim.lsp.buf.signature_help() end,
+    --   desc = "Signature help",
+    -- },
     ["-"] = {
-      "<CMD>Oil<CR>", desc = "Open parent directory" ,
+      "<CMD>Oil<CR>",
+      desc = "Open parent directory",
     },
   },
   t = {
@@ -67,14 +68,10 @@ return {
     -- ["<esc>"] = false,
   },
   i = {
-    ["<A-j>"] = { "<Esc>:m .+1<CR>==gi" },
-    ["<A-k>"] = { "<Esc>:m .-2<CR>==gi" },
-    ["<A-h>"] = {
-      function() vim.lsp.buf.signature_help() end,
-      desc = "Signature help",
-    },
+    ["<A-Down>"] = { "<Esc>:m .+1<CR>==gi" },
+    ["<A-Up>"] = { "<Esc>:m .-2<CR>==gi" },
     ["<Tab>"] = {
-      function() 
+      function()
         local copilot = require "copilot.suggestion"
         if copilot.is_visible() then
           copilot.accept()
@@ -82,21 +79,21 @@ return {
           -- Input tab
           vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
         end
-      end
+      end,
     },
     ["<S-Tab>"] = {
-      function() 
+      function()
         -- Remove one indentation level
         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-d>", true, true, true), "n")
-      end
-    }
+      end,
+    },
   },
   v = {
-    ["<A-j>"] = { ":m '>+1<CR>gv=gv" },
-    ["<A-k>"] = { ":m '<-2<CR>gv=gv" },
-    ["<A-h>"] = {
-      function() vim.lsp.buf.signature_help() end,
-      desc = "Signature help",
-    },
+    ["<A-Down>"] = { ":m '>+1<CR>gv=gv" },
+    ["<A-Up>"] = { ":m '<-2<CR>gv=gv" },
+    -- ["<A-h>"] = {
+    --   function() vim.lsp.buf.signature_help() end,
+    --   desc = "Signature help",
+    -- },
   },
 }
