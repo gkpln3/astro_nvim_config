@@ -62,6 +62,7 @@ return {
       "<CMD>Oil<CR>",
       desc = "Open parent directory",
     },
+    ["<C-c>"] = { '"+y' },
   },
   t = {
     -- setting a mapping to false will disable it
@@ -87,6 +88,7 @@ return {
         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-d>", true, true, true), "n")
       end,
     },
+    ["<C-c>"] = { '"+y' },
   },
   v = {
     ["<A-Down>"] = { ":m '>+1<CR>gv=gv" },
@@ -95,5 +97,6 @@ return {
     --   function() vim.lsp.buf.signature_help() end,
     --   desc = "Signature help",
     -- },
+    ["<C-c>"] = { '"*y' },
   },
 }
